@@ -6,6 +6,8 @@ const express = require("express");
 const fs = require('fs');
 const app = express();
 
+require("dotenv").config();
+
 //Add sessions
 const session = require('express-session');
 const passport = require('passport');
@@ -18,7 +20,7 @@ app.use(express.static(__dirname + "/public"));
 
 //Initialize passport
 app.use(session({
-    secret: "alongsecretonlyiknow_asdlfkhja465xzcew523",
+    secret: process.env.PASSPORT_SECRET,
     resave: false,
     saveUninitialized: false
 }));
@@ -26,8 +28,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-app.listen(3000, function () {
-    console.log("server started at 3000")
+app.listen(8080, function () {
+    console.log("server started at 8080")
 });
 
 app.get("/", function (req, res) {
